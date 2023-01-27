@@ -6,6 +6,12 @@ let resource_count = 0
 let clicker_count = 1
 let automation_clicks = 0
 
+// SECTION SHOP COST
+
+let number_times_bought = 1
+
+let basic_auto_price = 50
+
 // SECTION USER MANIPULATED DATA
 
 function increase_click_count(){
@@ -24,12 +30,15 @@ function buy_hand_drill(){
 
 function buy_basic_auto(){
   console.log('attempting to buy basic auto');
-  if (resource_count >= 50) {
+  if (resource_count >= (basic_auto_price * number_times_bought)) {
     resource_count -= 50
+    number_times_bought += 1
     automation_clicks += 3
     console.log('bought auto drill');
+    console.log(basic_auto_price * number_times_bought);
     draw_resource_clicks()
     draw_automation_clicks()
+    draw_basic_auto_p()
   } else {console.log('did not buy auto drill');}
 }
 
@@ -53,6 +62,13 @@ function draw_automation_clicks(){
   automation_elm.innerText = `AUTOMATION AMOUNT ${automation_clicks}`
 }
 
+// SECTION SHOP FUNCTIONS
+
+function draw_basic_auto_p(){
+  let basic_auto_elm = document.getElementById("basic_auto")
+  basic_auto_elm.innerText = `BASIC AUTO DRILLER: COST: ${basic_auto_price * number_times_bought}`
+}
+
 // SECTION AUTOMATED DATA [WHEN ACTIVATED]
 
 function automated_mining(){
@@ -63,4 +79,5 @@ function automated_mining(){
 
 // SECTION AUTOMATED DATA [INTERVAL BOUND]
 
-// setInterval(automated_mining, 500)
+draw_basic_auto_p()
+setInterval(automated_mining, 10000)
