@@ -1,17 +1,64 @@
-// SECTION ARRAYS
+// SECTION ARRAY [AUTOMATION]
 
 let automation_items = [
   {
     name: 'Basic Auto Miner',
-    cost: '50',
-    automation: '5',
-    buys: `1`
+    cost: 50,
+    automation: 3,
+    buys: 1,
+  },
+  {
+    name: 'Advanced Auto Miner',
+    cost: 200,
+    automation: 5,
+    buys: 1
+  },
+  {
+    name: 'Industrial Auto Miner',
+    cost: 500,
+    automation: 10,
+    buys: 1
+  },
+  {
+    name: 'Titanic Auto Miner',
+    cost: 1000,
+    automation: 100,
+    buys: 1
   }
+]
+
+// SECTION ARRAY [Items]
+
+let manual_items = [
+  {
+    name: 'pickaxe',
+    clicker_addition: 1,
+    cost: 100,
+    buys: `1`,
+  },
+  {
+    name: 'drill',
+    clicker_addition: 2,
+    cost: 500,
+    buys: '1',
+  },
+  {
+    name: 'Driller Rover',
+    clicker_addition: 5,
+    cost: 1000,
+    buys: '1',
+  },
+  {
+    name: 'Mining Platform',
+    clicker_addition: 25,
+    cost: 10000,
+    buys: '1',
+  },
 ]
 
 // SECTION VARIABLES
 
-let resource_count = 100000
+let resource_count = 1000
 let clicker_count = 1
 let automation_clicks = 0
 
@@ -41,6 +88,8 @@ function buy_hand_drill(){
 
 // SECTION USER MANIPULATED DATA [AUTOMATED UPGRADES]
 
+
+
 function buy_basic_auto(){
   console.log('attempting to buy basic auto');
   if (resource_count >= (basic_auto_price * number_times_bought)) {
@@ -53,6 +102,17 @@ function buy_basic_auto(){
     draw_automation_clicks()
     draw_basic_auto_p()
   } else {console.log('did not buy auto drill');}
+}
+
+function buy_automation(automation_name){
+  const purchased_automation = automation_items.find(a => a.name == automation_name)
+  if (resource_count >= (purchased_automation.cost * purchased_automation.buys)) {
+    resource_count -= purchased_automation.cost
+    automation_clicks += purchased_automation.automation
+    draw_resource_clicks()
+    draw_automation_clicks()
+    draw_automation_p()
+  } else {'Not enough RESOURCE'}
 }
 
 function buy_advanced_auto(){
@@ -108,6 +168,10 @@ function draw_automation_clicks(){
 }
 
 // SECTION SHOP FUNCTIONS
+
+function draw_automation_p(){
+
+}
 
 function draw_basic_auto_p(){
   let basic_auto_elm = document.getElementById("basic-auto")
