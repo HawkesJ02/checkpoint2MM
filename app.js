@@ -11,18 +11,21 @@ let automation_items = [
   {
     name: 'Advanced Auto Miner',
     cost: 200,
+    cost_starting: 200,
     automation: 5,
     buys: 1
   },
   {
     name: 'Industrial Auto Miner',
     cost: 500,
+    cost_starting: 500,
     automation: 10,
     buys: 1
   },
   {
     name: 'Titanic Auto Miner',
     cost: 1000,
+    cost_starting: 1000,
     automation: 100,
     buys: 1
   }
@@ -30,36 +33,40 @@ let automation_items = [
 
 // SECTION ARRAY [Items]
 
-let manual_items = [
+let items = [
   {
-    name: 'pickaxe',
-    clicker_addition: 1,
+    name: 'Pickaxe',
     cost: 100,
-    buys: `1`,
+    cost_starting: 100,
+    clicker_addition: 1,
+    buys: 1,
   },
   {
-    name: 'drill',
-    clicker_addition: 2,
+    name: 'Drill',
     cost: 500,
-    buys: '1',
+    cost_starting: 500,
+    clicker_addition: 2,
+    buys: 1,
   },
   {
     name: 'Driller Rover',
-    clicker_addition: 5,
     cost: 1000,
-    buys: '1',
+    cost_starting: 1000,
+    clicker_addition: 5,
+    buys: 1,
   },
   {
     name: 'Mining Platform',
-    clicker_addition: 25,
     cost: 10000,
-    buys: '1',
+    cost_starting: 10000,
+    clicker_addition: 25,
+    buys: 1,
   },
 ]
 
 // SECTION VARIABLES
 
-let resource_count = 10000000
+let resource_count = 1000
 let clicker_count = 1
 let automation_clicks = 0
 
@@ -108,16 +115,38 @@ function buy_automation(automation_name){
   const purchased_automation = automation_items.find(a => a.name == automation_name)
   if (resource_count >= (purchased_automation.cost)) {
     resource_count -= purchased_automation.cost; 
-    purchased_automation.cost = purchased_automation.cost_starting * purchased_automation.buys
     automation_clicks += purchased_automation.automation;
     purchased_automation.buys += 1;
+    purchased_automation.cost = purchased_automation.cost_starting * purchased_automation.buys
     console.log(`bought ${purchased_automation.name}`);
     draw_resource_clicks()
     draw_automation_clicks()
-    document.getElementById(`Basic Auto Miner`).innerText = `${purchased_automation.name} COST: ${purchased_automation?.cost}`
+    draw_automation_shop(automation_name)
+  } else {'Not enough RESOURCE'}
+}
+function buy_item(item_name){
+  const purchased_item = items.find(i => i.name == item_name)
+  if (resource_count >= (purchased_item.cost)) {
+    resource_count -= purchased_item.cost; 
+    clicker_count += purchased_item.clicker_addition;
+    purchased_item.buys += 1;
+    purchased_item.cost = purchased_item.cost_starting * purchased_item.buys
+    console.log(`bought ${purchased_item.name}`);
+    draw_resource_clicks()
+    draw_clicker_data()
+    draw_item_shop(item_name)
   } else {'Not enough RESOURCE'}
 }
 
+function draw_item_shop(item_name){
+const purchased_item = items.find(i => i.name == item_name)
+document.getElementById(`${purchased_item.name}`).innerText = `${purchased_item.name} COST: ${purchased_item.cost}`
+}
+
+function draw_automation_shop(automation_name){
+  const purchased_automation = automation_items.find(a => a.name == automation_name)
+  document.getElementById(`${purchased_automation.name}`).innerText = `${purchased_automation.name} COST: ${purchased_automation.cost}`
+}
 
 // SECTION AUTOMATED DATA [DRAW BOUND]
 
@@ -141,26 +170,23 @@ function draw_automation_clicks(){
 
 // SECTION SHOP FUNCTIONS
 
-function draw_automation_p(automation_name){
- const purchased_automation = automation_items.find(a => a.name == automation_name)
- 
-}
 
-
-// function draw_basic_auto_p(){
-//   let basic_auto_elm = document.getElementById("basic-auto")
-//   basic_auto_elm.innerText = `BASIC AUTO DRILLER: COST: ${basic_auto_price * (number_times_bought * number_times_bought)}`
-// }
 // SECTION AUTOMATED DATA [WHEN ACTIVATED]
 
 function automated_mining(){
   resource_count += automation_clicks
   console.log('BEEP BOOP AUTOMATION RUNNING');
   draw_resource_clicks()
-  draw_automation_p()
 }
 
 // SECTION AUTOMATED DATA [INTERVAL BOUND]
-buy_automation(`Basic Auto Miner`)
-draw_automation_p()
-setInterval(automated_mining, 10000)
+
+draw_item_shop(`Pickaxe`)
+draw_item_shop(`Drill`)
+draw_item_shop(`Driller Rover`)
+draw_item_shop(`Mining Platform`)
+draw_automation_shop(`Basic Auto Miner`)
+draw_automation_shop(`Advanced Auto Miner`)
+draw_automation_shop(`Industrial Auto Miner`)
+draw_automation_shop(`Titanic Auto Miner`)
+setInterval(automated_mining, 1000)
