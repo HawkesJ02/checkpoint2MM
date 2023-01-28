@@ -4,8 +4,9 @@ let automation_items = [
   {
     name: 'Basic Auto Miner',
     cost: 50,
+    cost_starting: 50,
     automation: 3,
-    buys: 1,
+    buys: 1
   },
   {
     name: 'Advanced Auto Miner',
@@ -58,7 +59,7 @@ let manual_items = [
 
 // SECTION VARIABLES
 
-let resource_count = 1000
+let resource_count = 10000000
 let clicker_count = 1
 let automation_clicks = 0
 
@@ -90,60 +91,31 @@ function buy_hand_drill(){
 
 
 
-function buy_basic_auto(){
-  console.log('attempting to buy basic auto');
-  if (resource_count >= (basic_auto_price * number_times_bought)) {
-    resource_count -= basic_auto_price * number_times_bought
-    number_times_bought += 1
-    automation_clicks += 3
-    // console.log('bought auto drill');
-    // console.log(basic_auto_price * number_times_bought);
-    draw_resource_clicks()
-    draw_automation_clicks()
-    draw_basic_auto_p()
-  } else {console.log('did not buy auto drill');}
-}
+// function buy_basic_auto(){
+//   console.log('attempting to buy basic auto');
+//   if (resource_count >= (basic_auto_price * number_times_bought)) {
+//     number_times_bought += 1
+//     resource_count -= basic_auto_price * number_times_bought
+//     automation_clicks += 3
+//     // console.log('bought auto drill');
+//     // console.log(basic_auto_price * number_times_bought);
+//     draw_resource_clicks()
+//     draw_automation_clicks()
+//   } else {console.log('did not buy auto drill');}
+// }
 
 function buy_automation(automation_name){
   const purchased_automation = automation_items.find(a => a.name == automation_name)
-  if (resource_count >= (purchased_automation.cost * purchased_automation.buys)) {
-    resource_count -= purchased_automation.cost
-    automation_clicks += purchased_automation.automation
+  if (resource_count >= (purchased_automation.cost)) {
+    resource_count -= purchased_automation.cost; 
+    purchased_automation.cost = purchased_automation.cost_starting * purchased_automation.buys
+    automation_clicks += purchased_automation.automation;
+    purchased_automation.buys += 1;
+    console.log(`bought ${purchased_automation.name}`);
     draw_resource_clicks()
     draw_automation_clicks()
-    draw_automation_p()
+    document.getElementById(`Basic Auto Miner`).innerText = `${purchased_automation.name} COST: ${purchased_automation?.cost}`
   } else {'Not enough RESOURCE'}
-}
-
-function buy_advanced_auto(){
-  if (resource_count >= (advanced_auto_price * number_times_bought)) {
-    resource_count -= advanced_auto_price* number_times_bought
-    number_times_bought += 1
-    automation_clicks += 5
-    draw_resource_clicks()
-    draw_automation_clicks()
-    draw_advanced_auto_p()
-  } else {console.log('could not buy');}
-}
-function buy_industrial_auto(){
-  if (resource_count >= (industrial_auto_price * number_times_bought)) {
-    resource_count -= industrial_auto_price * number_times_bought
-    number_times_bought += 1
-    automation_clicks += 25
-    draw_resource_clicks()
-    draw_automation_clicks()
-    draw_industrial_auto_p()
-  } else {console.log('could not buy');}
-}
-function buy_titanic_auto(){
-  if (resource_count >= (titanic_auto_price * number_times_bought)) {
-    resource_count -= titanic_auto_price* number_times_bought
-    number_times_bought += 1
-    automation_clicks += 100
-    draw_resource_clicks()
-    draw_automation_clicks()
-    draw_titanic_auto_p()
-  } else {console.log('could not buy');}
 }
 
 
@@ -169,42 +141,26 @@ function draw_automation_clicks(){
 
 // SECTION SHOP FUNCTIONS
 
-function draw_automation_p(){
-
+function draw_automation_p(automation_name){
+ const purchased_automation = automation_items.find(a => a.name == automation_name)
+ 
 }
 
-function draw_basic_auto_p(){
-  let basic_auto_elm = document.getElementById("basic-auto")
-  basic_auto_elm.innerText = `BASIC AUTO DRILLER: COST: ${basic_auto_price * (number_times_bought * number_times_bought)}`
-}
 
-function draw_advanced_auto_p(){
-  let advanced_auto_elm = document.getElementById('advanced-auto')
-  advanced_auto_elm.innerText = `ADVANCED AUTO DRILLER: COST:${advanced_auto_price * (number_times_bought * number_times_bought)}`
-}
-
-function draw_industrial_auto_p(){
-  let advanced_auto_elm = document.getElementById('industrial-auto')
-  advanced_auto_elm.innerText = `INDUSTRIAL AUTO DRILLER: COST:${industrial_auto_price * (number_times_bought * number_times_bought)}`
-}
-
-function draw_titanic_auto_p(){
-  let advanced_auto_elm = document.getElementById('titanic-auto')
-  advanced_auto_elm.innerText = `TITANIC AUTO DRILLER: COST:${titanic_auto_price * (number_times_bought * number_times_bought)}`
-}
-
+// function draw_basic_auto_p(){
+//   let basic_auto_elm = document.getElementById("basic-auto")
+//   basic_auto_elm.innerText = `BASIC AUTO DRILLER: COST: ${basic_auto_price * (number_times_bought * number_times_bought)}`
+// }
 // SECTION AUTOMATED DATA [WHEN ACTIVATED]
 
 function automated_mining(){
   resource_count += automation_clicks
   console.log('BEEP BOOP AUTOMATION RUNNING');
   draw_resource_clicks()
+  draw_automation_p()
 }
 
 // SECTION AUTOMATED DATA [INTERVAL BOUND]
-
-draw_basic_auto_p()
-draw_advanced_auto_p()
-draw_industrial_auto_p()
-draw_titanic_auto_p()
+buy_automation(`Basic Auto Miner`)
+draw_automation_p()
 setInterval(automated_mining, 10000)
