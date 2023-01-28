@@ -3,4 +3,29 @@
   background-repeat: no-repeat;
   background-position: center;
   color: white;
+  font-family: 'VT323', monospace;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.green-fade {
+  background-color: rgba(1, 68, 1, 0.678);
+  border: 5px green solid;
+}
+
+.title_font{
+  font-size: 8em;
+}
+
+#myDIV {
+  border: 1px solid black;
+  width: 400px;
+  height: 100px;
+  animation: mymove 5s infinite;
+}
+
+@keyframes mymove {
+  50% {font-size: 40px;}
 }

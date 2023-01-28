@@ -17,10 +17,13 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="app.js" defer></script>
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 </head>
 
 
-<body class="backgrounder debug">
+<body class="backgrounder">
   <style>
     body.debug .container,
     body.debug .container-fluid {
@@ -39,17 +42,23 @@
     }
   </style>
   <header>
-    <div class="container-fluid p-md-3">
+    <div class="container-fluid">
       <div class="row text-center flex-row-reverse">
         <div class="col-12">
           <div>
-            <h1>MOON MINER DELUXE</h1>
+            <h1 class="title_font">MOON MINER DELUXE</h1>
           </div>
         </div>
-        <div class="col-12 col-md-4 p-md-2">
+        <div class="col-12 col-md-4 fs-3">
           <div>
-            Now with more mines.
+            <p>Now with more mines.</p>
           </div>
+        </div>
+      </div>
+      <div class="row fs-3  text-center justify-content-center">
+        <div class="col-3 green-fade">
+          <div>CURRENT CHEESIUM AMOUNT:</div>
+          <div class="fs-1" id="resource-box">TEST SCREEN</div>
         </div>
       </div>
     </div>
@@ -57,44 +66,59 @@
 
 
   <main>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/Moon_rotating_full_160px.gif?20160323000922"
-      height="500px" alt="BIG COOL HUGE MOON" onclick="increase_click_count()">
+    <div class=" container-fluid p-5">
+      <div class="row justify-content-center text-center align-items-center">
+        <div class="col-6 order-2">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/Moon_rotating_full_160px.gif?20160323000922"
+            height="350px" alt="BIG COOL HUGE MOON" onclick="increase_click_count()" class="pointer">
+        </div>
+        <div class="col-3 order-1">
+          <div id='automation-clicks' class="green-fade">AUTOMATION INCREASE: N/A</div>
+        </div>
+        <div class="col-3 order-3">
+          <div id="clicker-count" class="green-fade">MINING INCREASE: N/A</div>
+        </div>
+      </div>
+    </div>
   </main>
   <footer>
-    <div class="container">
+    <div class="container-fluid green-fade fs-5">
+      <div class="row justify-content-around text-center">
+        <div class=" col-2">MANUAL ITEMS:</div>
+        <div class="col-2">AUTIOMATED ITEMS:</div>
+      </div>
       <div class="row">
-        <div class="col-12">
-          <div id="resource-box">TEST SCREEN</div>
+        <div class="col-6">
+          <div class="row">
+            <div class="col-6 green-fade">
+              <div onclick="buy_item('Pickaxe')" id="Pickaxe"></div>
+            </div>
+            <div class="col-6 green-fade">
+              <div onclick="buy_item('Drill')" id="Drill"></div>
+            </div>
+            <div class="col-6 green-fade">
+              <div onclick="buy_item('Driller Rover')" id="Driller Rover"></div>
+            </div>
+            <div class="col-6 green-fade">
+              <div onclick="buy_item('Mining Platform')" id="Mining Platform"></div>
+            </div>
+          </div>
         </div>
-        <div class="col-2">
-          <div id="clicker-count">CLICKER UPGRADES</div>
-        </div>
-        <div class="col-2">
-          <div onclick="buy_item('Pickaxe')" id="Pickaxe"></div>
-        </div>
-        <div class="col-2">
-          <div onclick="buy_item('Drill')" id="Drill"></div>
-        </div>
-        <div class="col-2">
-          <div onclick="buy_item('Driller Rover')" id="Driller Rover"></div>
-        </div>
-        <div class="col-2">
-          <div onclick="buy_item('Mining Platform')" id="Mining Platform"></div>
-        </div>
-        <div class="col-2">
-          <div onclick="buy_automation('Basic Auto Miner')" id='Basic Auto Miner'>BASIC AUTO MINER</div>
-        </div>
-        <div class="col-2">
-          <div onclick="buy_automation('Advanced Auto Miner')" id="Advanced Auto Miner"></div>
-        </div>
-        <div class="col-2">
-          <div onclick="buy_automation('Industrial Auto Miner')" id="Industrial Auto Miner"></div>
-        </div>
-        <div class="col-2">
-          <div onclick="buy_automation('Titanic Auto Miner')" id="Titanic Auto Miner"></div>
-        </div>
-        <div class="col-2">
-          <div id='automation-clicks'>AUTOMATION COUNT</div>
+        <div class="col-6">
+          <div class="row">
+            <div class="col-6 green-fade">
+              <div onclick="buy_automation('Basic Auto Miner')" id='Basic Auto Miner'></div>
+            </div>
+            <div class="col-6 green-fade">
+              <div onclick="buy_automation('Advanced Auto Miner')" id="Advanced Auto Miner"></div>
+            </div>
+            <div class="col-6 green-fade">
+              <div onclick="buy_automation('Industrial Auto Miner')" id="Industrial Auto Miner"></div>
+            </div>
+            <div class="col-6 green-fade">
+              <div onclick="buy_automation('Titanic Auto Miner')" id="Titanic Auto Miner"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -88,42 +88,7 @@ function increase_click_count(){
   draw_resource_clicks()
 }
 
-function buy_hand_drill(){
-  clicker_count += 3
-  console.log(clicker_count);
-  draw_clicker_data()
-}
 
-// SECTION USER MANIPULATED DATA [AUTOMATED UPGRADES]
-
-
-
-// function buy_basic_auto(){
-//   console.log('attempting to buy basic auto');
-//   if (resource_count >= (basic_auto_price * number_times_bought)) {
-//     number_times_bought += 1
-//     resource_count -= basic_auto_price * number_times_bought
-//     automation_clicks += 3
-//     // console.log('bought auto drill');
-//     // console.log(basic_auto_price * number_times_bought);
-//     draw_resource_clicks()
-//     draw_automation_clicks()
-//   } else {console.log('did not buy auto drill');}
-// }
-
-function buy_automation(automation_name){
-  const purchased_automation = automation_items.find(a => a.name == automation_name)
-  if (resource_count >= (purchased_automation.cost)) {
-    resource_count -= purchased_automation.cost; 
-    automation_clicks += purchased_automation.automation;
-    purchased_automation.buys += 1;
-    purchased_automation.cost = purchased_automation.cost_starting * purchased_automation.buys
-    console.log(`bought ${purchased_automation.name}`);
-    draw_resource_clicks()
-    draw_automation_clicks()
-    draw_automation_shop(automation_name)
-  } else {'Not enough RESOURCE'}
-}
 function buy_item(item_name){
   const purchased_item = items.find(i => i.name == item_name)
   if (resource_count >= (purchased_item.cost)) {
@@ -138,17 +103,33 @@ function buy_item(item_name){
   } else {'Not enough RESOURCE'}
 }
 
-function draw_item_shop(item_name){
-const purchased_item = items.find(i => i.name == item_name)
-document.getElementById(`${purchased_item.name}`).innerText = `${purchased_item.name} COST: ${purchased_item.cost}`
+// SECTION USER MANIPULATED DATA [AUTOMATED UPGRADES]
+
+function buy_automation(automation_name){
+  const purchased_automation = automation_items.find(a => a.name == automation_name)
+  if (resource_count >= (purchased_automation.cost)) {
+    resource_count -= purchased_automation.cost; 
+    automation_clicks += purchased_automation.automation;
+    purchased_automation.buys += 1;
+    purchased_automation.cost = purchased_automation.cost_starting * purchased_automation.buys
+    console.log(`bought ${purchased_automation.name}`);
+    draw_resource_clicks()
+    draw_automation_clicks()
+    draw_automation_shop(automation_name)
+  } else {'Not enough RESOURCE'}
 }
 
-function draw_automation_shop(automation_name){
-  const purchased_automation = automation_items.find(a => a.name == automation_name)
-  document.getElementById(`${purchased_automation.name}`).innerText = `${purchased_automation.name} COST: ${purchased_automation.cost}`
-}
 
 // SECTION AUTOMATED DATA [DRAW BOUND]
+
+function draw_item_shop(item_name){
+  const purchased_item = items.find(i => i.name == item_name)
+  document.getElementById(`${purchased_item.name}`).innerHTML = `
+ <div>${purchased_item.name}</div>
+ <div> COST: ${purchased_item.cost} </div>
+ <div> UPGRADE TOTAL: ${purchased_item.buys - 1}</div>
+  `
+}
 
 function draw_resource_clicks(){
 let resource_elm = document.getElementById('resource-box')
@@ -156,16 +137,25 @@ let resource_elm = document.getElementById('resource-box')
 resource_elm.innerText = resource_count
 }
 
+function draw_automation_shop(automation_name){
+  const purchased_automation = automation_items.find(a => a.name == automation_name)
+  document.getElementById(`${purchased_automation.name}`).innerHTML = `
+  <div>${purchased_automation.name}</div>
+  <div>COST: ${purchased_automation.cost}</div>
+  <div>UPGRADE TOTAL: ${purchased_automation.buys -1}</div>
+  `
+}
+
 function draw_clicker_data(){
   let clicker_elm = document.getElementById('clicker-count')
   // @ts-ignore
-  clicker_elm.innerText = clicker_count
+  clicker_elm.innerText = `MINING UPGRADES: ${clicker_count}`
 }
 
 function draw_automation_clicks(){
   let automation_elm = document.getElementById('automation-clicks')
   // @ts-ignore
-  automation_elm.innerText = `AUTOMATION AMOUNT ${automation_clicks}`
+  automation_elm.innerText = `AUTOMATION AMOUNT: ${automation_clicks}`
 }
 
 // SECTION SHOP FUNCTIONS
