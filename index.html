@@ -24,29 +24,12 @@
 
 
 <body class="backgrounder">
-  <style>
-    body.debug .container,
-    body.debug .container-fluid {
-      outline: 2px double blue;
-      outline-offset: -2px;
-    }
-
-    body.debug .row {
-      outline: 2px dashed red;
-      outline-offset: -2px;
-    }
-
-    body.debug [class*="col-"] {
-      outline: 2px dotted forestgreen;
-      outline-offset: -3px;
-    }
-  </style>
   <header>
     <div class="container-fluid">
       <div class="row text-center flex-row-reverse">
         <div class="col-12">
           <div>
-            <h1 class="title_font">MOON MINER DELUXE</h1>
+            <h1 class="title_font">MOON MINER DELUXE MK1</h1>
           </div>
         </div>
         <div class="col-12 col-md-4 fs-3">
@@ -58,7 +41,7 @@
       <div class="row fs-3  text-center justify-content-center">
         <div class="col-3 green-fade">
           <div>CURRENT CHEESIUM AMOUNT:</div>
-          <div class="fs-1" id="resource-box">TEST SCREEN</div>
+          <div class="fs-1" id="resource-box">0</div>
         </div>
       </div>
     </div>
@@ -73,10 +56,10 @@
             height="350px" alt="BIG COOL HUGE MOON" onclick="increase_click_count()" class="pointer">
         </div>
         <div class="col-3 order-1">
-          <div id='automation-clicks' class="green-fade">AUTOMATION INCREASE: N/A</div>
+          <div id='automation-clicks' class="green-fade">AUTOMATION INCREASE: 0</div>
         </div>
         <div class="col-3 order-3">
-          <div id="clicker-count" class="green-fade">MINING INCREASE: N/A</div>
+          <div id="clicker-count" class="green-fade">MINING INCREASE: 1</div>
         </div>
       </div>
     </div>
@@ -85,8 +68,11 @@
     <div class="container-fluid green-fade fs-5">
       <div class="row justify-content-around text-center">
         <div class=" col-2">MANUAL ITEMS:</div>
-        <div class="col-2">AUTIOMATED ITEMS:</div>
+        <div class="col-2">AUTOMATED ITEMS:</div>
       </div>
+
+    </div>
+    <div class="container-fluid">
       <div class="row">
         <div class="col-6">
           <div class="row">
